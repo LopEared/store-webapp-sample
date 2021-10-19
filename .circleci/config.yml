@@ -28,16 +28,6 @@ jobs:
 
             echo "Current-folder" >> /tmp/art-3;
             echo "$(ls -l)" >> /tmp/art-3;
-      - aws-s3/copy:
-          arguments: '--dryrun'
-          aws-access-key-id: AKIAVCUA74XZ62BOQQUM
-          aws-region: us-west-1
-          aws-secret-access-key: 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
-          from: ./artifact_"$(date '+%H-%M')".tar
-          to: 's3://elasticbeanstalk-us-west-1-349236618739'
-
-            
-           
       - store_artifacts:
           path: /tmp/art-3
           destination: artifact-file3    
