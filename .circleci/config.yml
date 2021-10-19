@@ -33,7 +33,7 @@ jobs:
           path: /tmp/art-3
           destination: artifact-file3    
       - store_artifacts:
-          path: /target
+          path: ./target/store-webapp-capsule.jar
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
