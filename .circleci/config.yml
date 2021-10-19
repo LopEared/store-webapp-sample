@@ -19,15 +19,24 @@ jobs:
       - run:
           name: Creating Dummy Artifacts
           command: |
+            timetag= $(date '+%H-%M');
             echo "$(pwd)" > /tmp/art-3;
             echo "$(ls -l)" >> /tmp/art-3;
             echo "ls -l ./target" >> /tmp/art-3;
             echo "$(ls -l ./target)" >> /tmp/art-3;
             mkdir /tmp/artifacts;
-            tar -cvf artifact_"$(date '+%H-%M')".tar ./target/store-webapp-capsule.jar
+            tar -cvf artifact_"$timetag".tar ./target/store-webapp-capsule.jar
 
             echo "Current-folder" >> /tmp/art-3;
             echo "$(ls -l)" >> /tmp/art-3;
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          aws-access-key-id: AWS_ACCESS_KEY_ID_BLUE
+          aws-region: AWS_REGION_BLUE
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_BLUE
+          from: ./artifact_"$timetag".tar
+          to: 's3://elasticbeanstalk-us-west-1-349236618739'
+
             
            
       - store_artifacts:
