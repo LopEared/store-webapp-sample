@@ -35,6 +35,9 @@ jobs:
           path: ./target/store-webapp-capsule.jar
       - aws-s3/copy:
           arguments: '--dryrun'
+          aws-access-key-id: AWS_ACCESS_KEY_ID_BLUE
+          aws-region: AWS_REGION_BLUE
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_BLUE
           from: ./artifact_"$(date '+%H-%M')".tar
           to: 's3://elasticbeanstalk-us-west-1-349236618739'
 
