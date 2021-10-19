@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Creating Dummy Artifacts
           command: |
-            timetag= $(date '+%H-%M');
+            timetag = $(date '+%H-%M');
             echo "$(pwd)" > /tmp/art-3;
             echo "$(ls -l)" >> /tmp/art-3;
             echo "ls -l ./target" >> /tmp/art-3;
