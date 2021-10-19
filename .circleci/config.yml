@@ -21,6 +21,7 @@ jobs:
           command: |
             echo "my artifact file" > /tmp/art-1;
             echo "$(pwd)" > /tmp/art-3;
+            echo "$(ls -l)" >> /tmp/art-3;
             mkdir /tmp/artifacts;
             echo "my artifact files in a dir" > /tmp/artifacts/art-2;
       - store_artifacts:
