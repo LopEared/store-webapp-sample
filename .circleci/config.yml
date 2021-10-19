@@ -1,49 +1,10 @@
 version: 2.1
+
 orbs:
+  maven: circleci/maven@0.0.12
   aws-s3: circleci/aws-s3@3.0.0
-jobs:
-  build-and-test:
-    docker:
-      - image: maven:3.3-jdk-8
-    steps:
-      # Checkout the code as the first step.
-      - checkout
-      # Use mvn clean and package as the standard maven build phase
-      - run:
-          name: Build
-          command: mvn clean package
-      # Then run your tests!
-      - run:
-          name: Test
-          command: mvn test
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            echo "$(pwd)" > /tmp/art-3;
-            echo "$(ls -l)" >> /tmp/art-3;
-            echo "ls -l ./target" >> /tmp/art-3;
-            echo "$(ls -l ./target)" >> /tmp/art-3;
-            mkdir /tmp/artifacts;
-            tar -cvf artifact_"$(date '+%H-%M')".tar ./target/store-webapp-capsule.jar
 
-            echo "Current-folder" >> /tmp/art-3;
-            echo "$(ls -l)" >> /tmp/art-3;
-      - store_artifacts:
-          path: /tmp/art-3
-          destination: artifact-file3    
-      - store_artifacts:
-          path: ./target/store-webapp-capsule.jar
-      - aws-s3/copy:
-          aws-access-key-id: AWS_ACCESS_KEY_ID_BLUE
-          aws-region: AWS_REGION_BLUE
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_BLUE
-          from: ./artifact_"$(date '+%H-%M')".tar
-          to: 's3://elasticbeanstalk-us-west-1-349236618739/artifacts/'
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  maven_test:
     jobs:
-      - build-and-test
+      - maven/test # checkout, build, test, and upload test results
