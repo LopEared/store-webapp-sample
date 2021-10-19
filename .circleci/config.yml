@@ -1,5 +1,6 @@
 version: 2.1
-
+orbs:
+  aws-s3: circleci/aws-s3@3.0.0
 jobs:
   build-and-test:
     docker:
@@ -10,7 +11,7 @@ jobs:
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
-          command: mvn clean package
+          command: mvn package
       # Then run your tests!
       - run:
           name: Test
