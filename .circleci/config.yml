@@ -24,12 +24,11 @@ jobs:
             echo "ls -l ./target" >> /tmp/art-3;
             echo "$(ls -l ./target)" >> /tmp/art-3;
             mkdir /tmp/artifacts;
-            tar -cvf artifact.tar ./target/store-webapp-capsule.jar
+            tar -cvf artifact_$(date '+%H:%M').tar ./target/store-webapp-capsule.jar
 
             echo "Current-folder" >> /tmp/art-3;
             echo "$(ls -l)" >> /tmp/art-3;
-            echo "ls -l ./target" >> /tmp/art-3;
-            echo "$(ls -l ./target)" >> /tmp/art-3;
+            
            
       - store_artifacts:
           path: /tmp/art-3
