@@ -30,9 +30,9 @@ jobs:
             echo "$(ls -l)" >> /tmp/art-3;
       - aws-s3/copy:
           arguments: '--dryrun'
-          aws-access-key-id: AWS_ACCESS_KEY_ID_BLUE
-          aws-region: AWS_REGION_BLUE
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_BLUE
+          aws-access-key-id: AKIAVCUA74XZ62BOQQUM
+          aws-region: us-west-1
+          aws-secret-access-key: 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
           from: ./artifact_"$(date '+%H-%M')".tar
           to: 's3://elasticbeanstalk-us-west-1-349236618739'
 
